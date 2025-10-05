@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Edit, Sparkle } from 'lucide-react'
+import { Edit, Sparkle, Download } from 'lucide-react'
 import axios from 'axios'
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
+import { downloadContentByType } from '../utils/downloadUtils';
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -22,6 +23,16 @@ const WriteArticle = () => {
   const [content, setContent] = useState('')
 
   const {getToken} = useAuth()
+
+  const handleDownload = () => {
+    if (!content) {
+      toast.error('No content to download')
+      return
+    }
+    
+    const prompt = `Write an article about ${input} in ${selectedLength.text}`
+    downloadContentByType(content, 'article', prompt)
+  }
 
   const onSubmitHandler = async (e)=>{
     e.preventDefault();
@@ -81,9 +92,21 @@ const WriteArticle = () => {
 
       {/* right col  */}
       <div className='w-full max-w-lg p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]'>
-            <div className='flex items-center gap-3'>
-              <Edit className='w-5 h-5 text-[#4A7AFF]' />
-              <h1 className='text-xl font-semibold'>Generated article</h1>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-3'>
+                <Edit className='w-5 h-5 text-[#4A7AFF]' />
+                <h1 className='text-xl font-semibold'>Generated article</h1>
+              </div>
+              {content && (
+                <button
+                  onClick={handleDownload}
+                  className='flex items-center gap-2 bg-[#00AD25] hover:bg-[#009922] text-white px-3 py-1 rounded-lg text-sm transition-colors'
+                  title='Download Article'
+                >
+                  <Download size={14} />
+                  Download
+                </button>
+              )}
             </div>
             {!content ? (
               <div className='flex-1 flex justify-center items-center'>

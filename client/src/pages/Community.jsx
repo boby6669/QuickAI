@@ -109,7 +109,7 @@ const Community = () => {
   }, [user])
 
   return !loading ? (
-    <div className='flex-1 h-full flex flex-col gap-4 p-6'>
+    <div className='flex-1 h-full flex flex-col gap-4 p-6 max-sm:z-0'>
       <h2 className="text-xl font-semibold">Creations</h2>
       
       {/* Grid Layout */}

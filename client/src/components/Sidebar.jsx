@@ -72,8 +72,8 @@ const Sidebar = ({sidebar,setSidebar}) => {
 
   return (
     <div className={`w-60 bg-white border-r border-gray-200 flex flex-col justify-between 
-     max-sm:absolute top-14 bottom-0 ${sidebar ? 'translate-x-0' : 
-        'max-sm:-translate-x-full'} transition-all duration-300 ease-in-out`}
+     max-sm:absolute max-sm:z-50 top-14 bottom-0 ${sidebar ? 'translate-x-0' : 
+        'max-sm:-translate-x-full'} transition-all duration-300 ease-in-out md:z-1`}
     >
       <div className='my-7 w-full'>
         <img src={user.imageUrl} alt="user avatar" className=' w-12 rounded-full mx-auto' />
